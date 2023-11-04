@@ -7,8 +7,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 from src import data_cleaning, feature_engineering
 
-INPUT_PATH = "data/complaints.parquet"
-OUTPUT_PATH = "data/complaints_labeled.parquet"
+INPUT_PATH = "data/interim/complaints.parquet"
+OUTPUT_PATH = "data/interim/complaints_labeled.parquet"
 
 categories_map = {
     0: "others",
@@ -37,15 +37,13 @@ def main() -> None:
         .str.cat(df["issue"], sep=" ")
         .str.cat(df["complaint_what_happened"], sep=" ")
     )
+
     df = df.dropna(subset=["text"])
     logging.info("TF IDF")
     vectorizer = TfidfVectorizer(stop_words="english")
     X_tfidf = vectorizer.fit_transform(df["text"])
     logging.info("Clustering")
     kmeans = KMeans(n_clusters=5, random_state=0, n_init="auto").fit(X_tfidf)
-    # logging.info("Evaluation")
-    # sil_score = metrics.silhouette_score(X=X_tfidf, labels=kmeans.labels_)
-    # logging.info(f"Silhouette Score: {sil_score}")
     logging.info("Ouput")
     df["label"] = kmeans.labels_
     df["category"] = df["label"].replace(categories_map)

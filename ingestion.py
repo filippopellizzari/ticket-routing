@@ -1,12 +1,14 @@
-import pandas as pd
 import json
 import logging
 
-JSON_PATH = "input/complaints-2021-05-14_08_16_.json"
-PARQUET_PATH = "data/complaints.parquet"
+import pandas as pd
+
+JSON_PATH = "data/raw/complaints-2021-05-14_08_16_.json"
+PARQUET_PATH = "data/interim/complaints.parquet"
 
 
 def convert_json_to_pandas_df(json_path: str):
+    """Read json and convert to pandas df."""
     f = open(json_path)
     data = json.load(f)
     df = pd.json_normalize(data)
