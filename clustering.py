@@ -1,7 +1,6 @@
 import logging
 
 import pandas as pd
-from sklearn import metrics
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 
