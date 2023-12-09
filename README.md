@@ -6,7 +6,7 @@ https://www.kaggle.com/datasets/venkatasubramanian/automatic-ticket-classificati
 - ingestion.py : convert tickets from json to parquet dataset
 - clustering.py : divide tickets into clusters of categories
 - preprocessing.py : preprocessing data for classification model
-- classification_model.py : baseline ticket classification model
+- classification_model.py : baseline ticket classification model using TF IDF and Logistic regression
 
 
 
